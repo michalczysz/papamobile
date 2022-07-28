@@ -1,3 +1,10 @@
 .grid-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
 
+.Search-Title{
+    display: block;
+    margin-bottom: 10px;
 }

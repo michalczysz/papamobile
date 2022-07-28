@@ -1,12 +1,18 @@
-.App-header {
+@import url('https://fonts.googleapis.com/css2?family=Saira:ital,wght@1,100&display=swap');
+
+.App-header{
   display: flex;
   justify-content: center;
-  margin-top: -10px;
-  margin-bottom: 10px;
+  height: 50px;
+}
+
+.title {
+  font-family: Saira;
+  font-weight: italic;
 }
 
 .body {
-  width: 50%;
-  margin: auto;
-  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
 }

@@ -1,6 +1,6 @@
 import React from 'react'
-import { AppBar, Toolbar } from '@mui/material'
-import { Menu as MenuIcon, IconButton } from "@mui/material";
+import { AppBar, Toolbar, IconButton } from '@mui/material'
+import { Menu as MenuIcon } from "@mui/icons-material";
 import "./App.css"
 
 import SearchForm from './components/search/search-component';
@@ -8,25 +8,23 @@ import SearchForm from './components/search/search-component';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-      </header>
-      <body className='body'>
-        <b>Czego szukasz?</b><br />
+      <AppBar className="App-header" position="static">
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <h2 className='title'>papimobile</h2>
+        </Toolbar>
+      </AppBar>
+      <div className='body'>
         <SearchForm />
-      </body>
+      </div>
     </div>
   );
 }
