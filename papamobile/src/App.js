@@ -1,6 +1,7 @@
 import React from 'react'
-import { AppBar, Toolbar } from '@mui/material'
-import { Menu as MenuIcon, IconButton } from "@mui/material";
+import { AppBar, Toolbar, Typography } from '@mui/material'
+import { IconButton } from "@mui/material";
+import { Menu as MenuIcon } from "@mui/icons-material";
 import "./App.css"
 
 import SearchForm from './components/search/search-component';
@@ -10,7 +11,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <AppBar position="static">
-          <Toolbar>
+          <Toolbar className="Bar-header">
             <IconButton
               size="large"
               edge="start"
@@ -20,13 +21,14 @@ function App() {
             >
               <MenuIcon />
             </IconButton>
+            {/* <Typography variant="h4" className="Menu-title">papimobile</Typography> */}
+            <h1 className="Menu-title">papimobile</h1>
           </Toolbar>
         </AppBar>
       </header>
-      <body className='body'>
-        <b>Czego szukasz?</b><br />
+      <div className='body'>
         <SearchForm />
-      </body>
+      </div>
     </div>
   );
 }

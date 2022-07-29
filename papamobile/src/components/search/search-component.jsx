@@ -3,16 +3,25 @@ import { Grid, Button, Topography, InputLabel, FormControl, Select, MenuItem } f
 import { Card, CardContent, CardActions } from '@mui/material'
 import "./search-component.css"
 
-function SearchForm() {
+
+
+function SearchForm(e) {
+    function onClickMethod() {
+        //e.preventDefault();
+
+        console.log('lo')
+    }
+
     return (<>
         <div className="grid-container">
             <Card sx={{ minWidth: 275 }}>
+                <label className="form-title">Czego szukasz?</label>
                 <CardContent>
-                    <Grid container spacing={{ xs: 3 }} columns={{ xs: 12 }}>
+                    <Grid container spacing={{ xs: 3 }} columns={{ xs: 6, sm: 12 }}>
                         {['Marka', 'Model', 'Rok', 'Paliwo'].map((e, index) => (
-                            <Grid item xs={6}>
-                                <InputLabel id="demo-simple-select-label">{e}</InputLabel>
+                            <Grid item xs={6} sm={6} key={e + index}>
                                 <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label">{e}</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
@@ -24,6 +33,9 @@ function SearchForm() {
                                 </FormControl>
                             </Grid>
                         ))}
+                        <Grid xs={12} item key="search_buttom">
+                            <Button variant='contained' style={{width: "100%"}} onClick={onClickMethod} >Szukaj</Button>
+                        </Grid>
                     </Grid>
                 </CardContent>
             </Card>
