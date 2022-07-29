@@ -3,15 +3,23 @@ import { Grid, InputLabel, FormControl, Select, MenuItem, Button } from '@mui/ma
 import { Card, CardContent } from '@mui/material'
 import "./search-component.css"
 
-function SearchForm() {
+
+
+function SearchForm(e) {
+    function onClickMethod() {
+        //e.preventDefault();
+
+        console.log('lol')
+    }
+
     return (<>
         <div className="grid-container">
-            <Card sx={{ maxWidth: 840, minWidth: 300, width: "100%" }}>
+            <Card sx={{ minWidth: 275 }}>
+                <label className="form-title">Czego szukasz?</label>
                 <CardContent>
-                    <b className='Search-Title'>Czego szukasz?</b>
-                    <Grid container spacing={{ xs: 3 }}>
+                    <Grid container spacing={{ xs: 3 }} columns={{ xs: 6, sm: 12 }}>
                         {['Marka', 'Model', 'Rok', 'Paliwo'].map((e, index) => (
-                            <Grid item xs={6} key={e + index}>
+                            <Grid item xs={6} sm={6} key={e + index}>
                                 <FormControl fullWidth>
                                     <InputLabel id="demo-simple-select-label">{e}</InputLabel>
                                     <Select
