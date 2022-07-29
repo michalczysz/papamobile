@@ -9,7 +9,7 @@ function SearchForm(e) {
     function onClickMethod() {
         //e.preventDefault();
 
-        console.log('lo')
+        console.log('lol')
     }
 
     return (<>
