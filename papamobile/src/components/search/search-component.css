@@ -1,6 +1,6 @@
 .grid-container {
     display: flex;
-    width: 100%;
+    width: 50%;
     justify-content: center;
 }
 

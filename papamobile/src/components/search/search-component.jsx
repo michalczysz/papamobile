@@ -3,8 +3,6 @@ import { Grid, InputLabel, FormControl, Select, MenuItem, Button } from '@mui/ma
 import { Card, CardContent } from '@mui/material'
 import "./search-component.css"
 
-
-
 function SearchForm(e) {
     function onClickMethod() {
         //e.preventDefault();
@@ -14,7 +12,7 @@ function SearchForm(e) {
 
     return (<>
         <div className="grid-container">
-            <Card sx={{ minWidth: 275 }}>
+            <Card sx={{ width: '100%' }}>
                 <label className="form-title">Czego szukasz?</label>
                 <CardContent>
                     <Grid container spacing={{ xs: 3 }} columns={{ xs: 6, sm: 12 }}>
