@@ -18,6 +18,7 @@ class NewCars(models.Model):
     fuel = models.CharField(max_length=100)
     power = models.IntegerField()
     gearbox = models.CharField(max_length=100)
+    milage = models.IntegerField()
     drive = models.CharField(max_length=100)
     chassis = models.CharField(max_length=100)
     color = models.CharField(max_length=100)
