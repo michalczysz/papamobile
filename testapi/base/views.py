@@ -3,9 +3,11 @@ from rest_framework import request
 from rest_framework import response
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.views import APIView
 from rest_framework import generics, filters
 from base.models import NewCars
 from .serializers import BrandCountSerializer, NewCarsSerializer# Create your views here.
+from .__init__ import brands
 
 @api_view(['GET'])
 def getData(request):
@@ -13,10 +15,9 @@ def getData(request):
     serializer = NewCarsSerializer(car, many = True)
     return Response(serializer.data)
 
-#class MostCommonBrand(request):
-#    serializer_class = BrandCountSerializer
-#    def get_queryset(self):
-#        return NewCars.objects
+class MostCommonBrand(generics.RetrieveAPIView):
+    queryset = NewCars.objects.all()
+    serializer_class = BrandCountSerializer
 
 
 @api_view(['GET'])
@@ -24,6 +25,14 @@ def mcBrand(request):
     car = NewCars.objects.all()
     serializer = BrandCountSerializer(car, many = True)
     return Response(serializer.data)
+
+class MBrand(APIView):
+    def get(self, request):
+        # brands = ['BMW', 'Volvo', 'Tesla', 'Honda']
+        output = []
+        for brand in brands:
+            output.append( { 'brand': brand, 'count': NewCars.objects.filter(brand__iexact=brand).count()} )
+        return Response(output)
 
 class BrandSearch(generics.ListAPIView):
     serializer_class = NewCarsSerializer
