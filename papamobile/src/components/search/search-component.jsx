@@ -6,7 +6,6 @@ import "./search-component.css"
 function SearchForm(e) {
     function onClickMethod() {
         //e.preventDefault();
-
         console.log('lol')
     }
 
@@ -31,9 +30,8 @@ function SearchForm(e) {
                                 </FormControl>
                             </Grid>
                         ))}
-                        <Grid item xs={12} key={"button_search"}><Button style={{width: '100%'}} variant="contained">Szukaj</Button></Grid>
+                        <Grid item xs={12} key={"button_search"}><Button style={{width: '100%'}} onClick={onClickMethod} variant="contained">Szukaj</Button></Grid>
                     </Grid>
-
                 </CardContent>
             </Card>
         </div>
