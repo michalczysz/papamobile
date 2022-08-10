@@ -2,8 +2,7 @@ import React from 'react'
 import { AppBar, Toolbar, IconButton } from '@mui/material'
 import { Menu as MenuIcon } from "@mui/icons-material";
 import "./general-page.css"
-
-import SearchForm from './components/search/search-component'
+import SearchForm from '../../search/search-component'
 
 function General() {
   return (

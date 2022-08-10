@@ -1,16 +1,24 @@
-import React from "react";
-// import "./styles.css";
-import General from "./general-page";
-import { Route, Routes, BrowserRouter } from "react-router-dom";
+import React from 'react'
+import General from "./components/pages/general/general-page";
+import Settings from "./components/pages/settings/settings-page";
+import About from "./components/pages/about/about-page"
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// import './App.css';
 
-export default function App() {
+function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<General />}>
-        
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <div className="App">
+      <Router>
+        <Routes>
+          <Route path="/">
+            <Route index element={<General />} />
+            <Route path="settings" element={<Settings />} />
+            <Route path="about" element={<About />} />
+          </Route>
+        </Routes>
+      </Router>
+    </div>
   );
 }
+
+export default App;
