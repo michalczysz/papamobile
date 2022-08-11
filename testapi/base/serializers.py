@@ -2,7 +2,7 @@
 
 from dataclasses import fields # type: ignore
 from rest_framework import serializers
-from base.models import NewCars
+from base.models import NewCars, DailyAvg
 
 class NewCarsSerializer(serializers.ModelSerializer):
     class Meta:
@@ -16,3 +16,8 @@ class BrandCountSerializer(serializers.ModelSerializer):
         fields = ['brand', 'brand_count']
     def get_brand_count(self, obj):
         return obj.brand.count('BMW')
+
+class DailyAvgSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DailyAvg
+        fields = '__all__'

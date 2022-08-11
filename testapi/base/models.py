@@ -25,4 +25,6 @@ class NewCars(models.Model):
     color = models.CharField(max_length=100, default='')
     import_country = models.CharField(max_length=100, default='')
 
-
+class DailyAvg(models.Model):
+    date = models.DateTimeField(default='')
+    price = models.IntegerField(default=0)

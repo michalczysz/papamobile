@@ -5,8 +5,8 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework import generics, filters
-from base.models import NewCars
-from .serializers import BrandCountSerializer, NewCarsSerializer# Create your views here.
+from base.models import NewCars, DailyAvg
+from .serializers import BrandCountSerializer, NewCarsSerializer, DailyAvgSerializer
 from .__init__ import brands
 
 @api_view(['GET'])
@@ -33,6 +33,10 @@ class MBrand(APIView):
         for brand in brands:
             output.append( { 'brand': brand, 'count': NewCars.objects.filter(brand__iexact=brand).count()} )
         return Response(output)
+
+class DailyAvgPrice(generics.ListCreateAPIView):
+    serializer_class = DailyAvgSerializer
+    queryset = DailyAvg.objects.all()
 
 class BrandSearch(generics.ListAPIView):
     serializer_class = NewCarsSerializer
