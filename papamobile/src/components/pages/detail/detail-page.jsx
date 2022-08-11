@@ -1,7 +1,7 @@
 import React from 'react'
 // import { AppBar, Toolbar, IconButton } from '@mui/material'
 // import { Menu as MenuIcon } from "@mui/icons-material";
-// import "./detail-page.css"
+import "./detail-page.css"
 import SearchForm from '../../search/search-component'
 
 function Detail() {
