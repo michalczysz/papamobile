@@ -8,7 +8,7 @@ import TopBar from './components/TopBar/topbar-page';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
-  const [state, setState] = useState("loading")
+  //const [state, setState] = useState("loading")
   return (
 
     <div className="App">
@@ -17,7 +17,7 @@ function App() {
         <Routes>
           <Route path="/">
             {/* <Route path="test" element={<Test state={state} setState={setState}/>} /> */}
-            <Route index element={<General state={state} setState={setState}/>} />
+            <Route index element={<General />} />
             <Route path="detail" element={<Detail />} />
             <Route path="settings" element={<Settings />} />
             <Route path="about" element={<About />} />
