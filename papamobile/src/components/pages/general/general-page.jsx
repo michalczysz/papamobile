@@ -11,6 +11,10 @@ function Test({ state, setState }) {
     let plot3 = "loading" 
     let plot4 = "loading" 
     let plot5 = "loading" 
+    let miles = []
+    for (let x = 1; x < 30; x++){
+        miles.push(x*10)
+    }
     return (
         <div className='General'>
             <Grid container spacing={{ xs: 1 }} columns={{ xs: 6, sm: 12 }}>
@@ -24,11 +28,7 @@ function Test({ state, setState }) {
                     <Medians field={'color'} search={['Czarny', 'Czerwony', 'Szary', 'Niebieski', 'Srebrny', 'Biały', 'Inny kolor']} title={'Median Price/Color'}/>
                 </Grid>
                 <Grid item xs={6}>
-                    <Plot data={plot3 === "loading" ? [{
-                        values: [0],
-                        labels: ['none'],
-                        type: 'pie'
-                    }] : plot3} layout={{ title: 'Most popular brands' }} />
+                    <Medians field={'milage'} search={miles} title={'Median Price/Milage'}/>
                 </Grid>
                 <Grid item xs={6}>
                     <Plot data={plot4 === "loading" ? [{
