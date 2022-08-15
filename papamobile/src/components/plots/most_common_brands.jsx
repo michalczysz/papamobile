@@ -15,32 +15,39 @@ function compare(a, b) {
     return comparison;
 }
 
+function MostCommonData() {
+    return axios.get('http://34.141.144.103:8000/base/mbrand?format=json')
+        .then((response) => {
+            let data = [{
+                values: [],
+                labels: [],
+                type: 'pie'
+            }];
+            let datas = response.data
+            datas.sort(compare)
+            datas.slice(0, 9).forEach(element => {
+                data[0].labels.push(element.brand)
+                data[0].values.push(element.count)
+            });
+            data[0].labels.push('other')
+            data[0].values.push(0)
+            datas.slice(10, datas.length).forEach(element => {
+                data[0].values[data[0].values.length - 1] += element.count
+            });
+            return data
+        });
+}
+
 function MostCommonPlot() {
     const [state, setState] = React.useState("loading")
+    
+    console.log(state)
 
-    if (state === "loading") {
-        console.log('test ')
-        axios.get('http://34.141.144.103:8000/base/mbrand?format=json')
-            .then((response) => {
-                let data = [{
-                    values: [],
-                    labels: [],
-                    type: 'pie'
-                }];
-                let datas = response.data
-                datas.sort(compare)
-                datas.slice(0, 9).forEach(element => {
-                    data[0].labels.push(element.brand)
-                    data[0].values.push(element.count)
-                });
-                data[0].labels.push('other')
-                data[0].values.push(0)
-                datas.slice(10, datas.length).forEach(element => {
-                    data[0].values[data[0].values.length - 1] += element.count
-                });
-                setState(data)
-            });
-    }
+    React.useEffect(() => {
+        MostCommonData().then(results => {
+            setState(results);
+        });
+    }, [])
 
     return (
         <Plot data={state === "loading" ? [{

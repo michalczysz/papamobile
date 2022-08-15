@@ -13,7 +13,7 @@ function Medians({field, search, title}) {
                 .then((response) => {
                     output.x.push(searching)
                     output.y.push(response.data.median)
-                    console.log(response.data.median + ' ' + searching, output)
+                    //console.log(response.data.median + ' ' + searching, output)
                     //setState( { x: state.x.concat(color), y: state.y.concat(response.data.median) } )
                     if (output.x.length === search.length) 
                     {
