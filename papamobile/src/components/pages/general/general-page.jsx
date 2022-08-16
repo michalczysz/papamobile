@@ -1,3 +1,4 @@
+
 import React from 'react'
 import Plot from 'react-plotly.js';
 import { Grid } from '@mui/material'
@@ -7,10 +8,22 @@ import MostCommonPlot from "../../plots/most_common_brands"
 import Medians from "../../plots/medians"
 
 
-function Test({ state, setState }) {
-    let plot3 = "loading" 
-    let plot4 = "loading" 
-    let plot5 = "loading" 
+function Test() {
+    // const [commonBrands, setCommonBrands] = React.useState("")
+    // const [priceFuel, setPriceFuel] = React.useState("")
+    // const [priceColor, setPriceColor] = React.useState("")
+    // const [priceMilage, setPriceMilage] = React.useState("")
+    // const [] = React.useState("")
+    // const [] = React.useState("")
+
+
+    let miles = []
+    for (let x = 1; x < 30; x++){
+        miles.push(x*10)
+    }
+
+    // console.log("test")
+
     return (
         <div className='General'>
             <Grid container spacing={{ xs: 1 }} columns={{ xs: 6, sm: 12 }}>
@@ -24,25 +37,21 @@ function Test({ state, setState }) {
                     <Medians field={'color'} search={['Czarny', 'Czerwony', 'Szary', 'Niebieski', 'Srebrny', 'Biały', 'Inny kolor']} title={'Median Price/Color'}/>
                 </Grid>
                 <Grid item xs={6}>
-                    <Plot data={plot3 === "loading" ? [{
-                        values: [0],
-                        labels: ['none'],
-                        type: 'pie'
-                    }] : plot3} layout={{ title: 'Most popular brands' }} />
+                    <Medians field={'milage'} search={miles} title={'Median Price/Milage'}/>
                 </Grid>
                 <Grid item xs={6}>
-                    <Plot data={plot4 === "loading" ? [{
+                    <Plot data={[{
                         values: [0],
                         labels: ['none'],
                         type: 'pie'
-                    }] : state} layout={{ title: 'Most popular brands' }} />
+                    }]} layout={{ title: 'Most popular brands' }} />
                 </Grid>
                 <Grid item xs={6} >
-                    <Plot data={plot5 === "loading" ? [{
+                    <Plot data={[{
                         values: [0],
                         labels: ['none'],
                         type: 'pie'
-                    }] : state} layout={{ title: 'Most popular brands' }} />
+                    }]} layout={{ title: 'Most popular brands' }} />
                 </Grid>
 
             </Grid>

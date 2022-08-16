@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import General from "./components/pages/general/general-page";
 import Detail from './components/pages/detail/detail-page';
 import Settings from "./components/pages/settings/settings-page";
@@ -8,16 +8,14 @@ import TopBar from './components/TopBar/topbar-page';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
-  //const [state, setState] = useState("loading")
   return (
-
     <div className="App">
       <Router>
         <TopBar />
         <Routes>
           <Route path="/">
             {/* <Route path="test" element={<Test state={state} setState={setState}/>} /> */}
-            <Route index element={<General />} />
+            <Route index element={<General/>} />
             <Route path="detail" element={<Detail />} />
             <Route path="settings" element={<Settings />} />
             <Route path="about" element={<About />} />

@@ -17,6 +17,11 @@ class BrandCountSerializer(serializers.ModelSerializer):
     def get_brand_count(self, obj):
         return obj.brand.count('BMW')
 
+class MedianSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NewCars
+        fields = ('price', 'color', 'fuel', 'milage', 'year', 'import_country')
+
 class DailyAvgSerializer(serializers.ModelSerializer):
     class Meta:
         model = DailyAvg
