@@ -19,7 +19,6 @@ function compare(a, b) {
 function MostCommonData() {
     return axios.get('http://34.141.144.103:8000/base/mbrand?format=json')
         .then((response) => {
-            console.log("test")
             let data = [{
                 values: [],
                 labels: [],
