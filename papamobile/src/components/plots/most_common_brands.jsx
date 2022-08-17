@@ -53,7 +53,7 @@ function MostCommonPlot() {
             values: [0],
             labels: ['none'],
             type: 'pie'
-        }] : state} layout={{ title: 'Most popular brands' }} />
+        }] : state} layout={{ title: 'Most popular brands' }}/>
     )
 }
 export default MostCommonPlot
