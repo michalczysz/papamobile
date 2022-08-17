@@ -3,6 +3,8 @@ import axios from 'axios';
 import Plot from 'react-plotly.js';
 import useEffectOnce from '../../ReactEX'
 
+import './daily_avg.css'
+
 function compare(a, b) {
     const bandA = a.count;
     const bandB = b.count;
@@ -53,7 +55,7 @@ function MostCommonPlot() {
             values: [0],
             labels: ['none'],
             type: 'pie'
-        }] : state} layout={{ title: 'Most popular brands' }}/>
+        }] : state} layout={{ autosize: true, title: 'Most popular brands' }} useResizeHandler className='daily_prices_plot'/>
     )
 }
 export default MostCommonPlot

@@ -2,9 +2,9 @@ import { React, useState } from 'react'
 import useEffectOnce from '../../ReactEX'
 import Plot from 'react-plotly.js'
 import axios from 'axios';
-import './daily_prices.css'
+import './daily_avg.css'
 
-function DailyPricesPlot() {
+function DailyAvgPlot({type, title}) {
     const [state, setState] = useState("loading")
 
     useEffectOnce(() => {
@@ -19,7 +19,7 @@ function DailyPricesPlot() {
                 }
                 response.data.forEach(element => {
                     output.x.push(element.date)
-                    output.y.push(element.price)
+                    output.y.push(element[type])
                 });
                 // console.log(output)
                 setState([output])
@@ -33,11 +33,11 @@ function DailyPricesPlot() {
             type: 'scatter',
             mode: 'lines+markers',
             marker: { color: 'red' },
-        }] : state} layout={{ autosize: true, title: 'Daily median price' }}
+        }] : state} layout={{ autosize: true, title: title }}
             useResizeHandler
             className='daily_prices_plot'
         />
     )
 }
 
-export default DailyPricesPlot
+export default DailyAvgPlot

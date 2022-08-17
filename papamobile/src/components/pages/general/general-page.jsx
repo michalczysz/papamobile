@@ -6,7 +6,8 @@ import './general-page.css'
 
 import MostCommonPlot from "../../plots/most_common_brands"
 import Medians from "../../plots/medians"
-import DailyPricesPlot from "../../plots/daily_prices"
+import DailyAvgPlot from "../../plots/daily_avg"
+import HeatPlot from "../../plots/heat_map"
 
 
 function Test() {
@@ -35,7 +36,10 @@ function Test() {
                     <Medians field={'fuel'} search={['Benzyna', 'Diesel', 'Elektryczny', 'Hybryda']} title={'Median Price/Fuel'} />
                 </Grid>
                 <Grid item xs={12} align="center">
-                    <DailyPricesPlot />
+                    <DailyAvgPlot type={'price'} title={'Daily median price'}/>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <DailyAvgPlot type={'count'} title={'Amount of new listings by day'}/>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <Medians field={'milage'} search={miles} title={'Median Price/Milage'} />
@@ -44,9 +48,9 @@ function Test() {
                     <Medians field={'color'} search={['Czarny', 'Czerwony', 'Szary', 'Niebieski', 'Srebrny', 'Biały', 'Inny kolor']} title={'Median Price/Color'} />
                 </Grid>
                 <Grid item xs={12} sm={6}>
+                    <HeatPlot imports={['Niemcy', 'Holandia', 'Austria', 'Belgia', 'Francja']} brands={['BMW', 'Mercedes-benz', 'Opel', 'Ford', 'Audi']} title={'Most imported brands from countries'}/>
                 </Grid>
             </Grid>
-
         </div>
     )
 }
