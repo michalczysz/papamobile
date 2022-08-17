@@ -33,7 +33,10 @@ function Medians({ field, search, title }) {
             type: 'bar',
             x: state.x,
             y: state.y,
-        }]} layout={{ title: title }} />
+        }]} layout={{ title: title }}
+            useResizeHandler
+            className='daily_prices_plot'
+        />
     )
 }
 

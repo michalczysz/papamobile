@@ -8,6 +8,7 @@ import MostCommonPlot from "../../plots/most_common_brands"
 import Medians from "../../plots/medians"
 import DailyAvgPlot from "../../plots/daily_avg"
 import HeatPlot from "../../plots/heat_map"
+import MapPlot from "../../plots/europe_map"
 
 
 function Test() {
@@ -35,7 +36,7 @@ function Test() {
                 <Grid item xs={12} sm={6}>
                     <Medians field={'fuel'} search={['Benzyna', 'Diesel', 'Elektryczny', 'Hybryda']} title={'Median Price/Fuel'} />
                 </Grid>
-                <Grid item xs={12} align="center">
+                <Grid item xs={6} sm={12} align="center">
                     <DailyAvgPlot type={'price'} title={'Daily median price'}/>
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -44,11 +45,14 @@ function Test() {
                 <Grid item xs={12} sm={6}>
                     <Medians field={'milage'} search={miles} title={'Median Price/Milage'} />
                 </Grid>
+                <Grid item xs={6} sm={12}>
+                    <MapPlot title={["Cars Origin Map", "Cars Origin Bar Chart"]}/>
+                </Grid>
                 <Grid item xs={12} sm={6}>
                     <Medians field={'color'} search={['Czarny', 'Czerwony', 'Szary', 'Niebieski', 'Srebrny', 'Biały', 'Inny kolor']} title={'Median Price/Color'} />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <HeatPlot imports={['Niemcy', 'Holandia', 'Austria', 'Belgia', 'Francja']} brands={['BMW', 'Mercedes-benz', 'Opel', 'Ford', 'Audi']} title={'Most imported brands from countries'}/>
+                    <HeatPlot imports={['Holandia', 'Austria', 'Belgia', 'Francja']} brands={['BMW', 'Mercedes-benz', 'Opel', 'Ford', 'Audi']} title={'Most imported brands from countries'}/>
                 </Grid>
             </Grid>
         </div>
