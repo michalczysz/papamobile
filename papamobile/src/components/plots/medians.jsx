@@ -29,7 +29,7 @@ function Medians({ field, search, title }) {
     return (
         <>
             {state === "loading" ?
-                <CircularProgress style={{'marginTop': '25%'}}/>
+                <CircularProgress style={{ 'marginTop': '25%' }} />
                 :
                 <Plot data={state === "loading" ? [{
                     values: [0],
@@ -39,6 +39,13 @@ function Medians({ field, search, title }) {
                     type: 'bar',
                     x: state.x,
                     y: state.y,
+                    //...(field === 'color' && {
+                    transforms: [{
+                        type: 'sort',
+                        target: 'y',
+                        order: 'descending'
+                    }]
+                    //})
                 }]} layout={{ title: title }}
                     useResizeHandler
                     className='daily_prices_plot'

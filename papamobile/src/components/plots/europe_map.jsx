@@ -15,7 +15,7 @@ function MapPlot({ title }) {
     const [state, setState] = React.useState("loading")
     const [state2, setState2] = React.useState("loading")
 
-    let countries = { "Austria": "AUT", "Belgia": "BEL", "Dania": "DNK", "Francja": "FRA", "Hiszpania": "ESP", "Holandia": "NLD", "Irlandia": "IRL", "Luksemburg": "LUX", "Niemcy": "DEU", "Polska": "POL", "Szwajcaria": "CHE", "Szwecja": "SWE", "Włochy": "ITA" }
+    let countries = { "Austria": "AUT", "Belgium": "BEL", "Denmark": "DNK", "France": "FRA", "Spain": "ESP", "Netherlands": "NLD", "Ireland": "IRL", "Luxembourg": "LUX", "Germany": "DEU", "Poland": "POL", "Switzerland": "CHE", "Sweden": "SWE", "Italy": "ITA" }
 
     useEffectOnce(() => {
         let highest = 0
@@ -74,7 +74,7 @@ function MapPlot({ title }) {
         <Grid container spacing={{ xs: 1 }} columns={{ xs: 6, sm: 12 }}>
             <Grid item xs={12} sm={6}>
                 {state === "loading" ?
-                    <CircularProgress/>
+                    <CircularProgress />
                     :
                     <Plot data={state}
                         layout={{
@@ -91,12 +91,17 @@ function MapPlot({ title }) {
             </Grid>
             <Grid item xs={12} sm={6}>
                 {state === "loading" ?
-                    <CircularProgress style={{'marginTop': '25%'}}/>
+                    <CircularProgress style={{ 'marginTop': '25%' }} />
                     :
                     <Plot data={[{
                         type: 'bar',
                         x: state2.x,
                         y: state2.y,
+                        transforms: [{
+                            type: 'sort',
+                            target: 'y',
+                            order: 'descending'
+                        }]
                     }]} layout={{ autosize: true, title: title[1] }}
                         useResizeHandler className='daily_prices_plot'
                     />

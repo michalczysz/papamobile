@@ -30,6 +30,8 @@ function SearchForm(e) {
             })
     };
 
+    const handleChangeModel = (event, param) => {}
+
     useEffectOnce(() => {
         axios.get('http://34.141.144.103:8000/base/mbrand')
             .then((response) => {
