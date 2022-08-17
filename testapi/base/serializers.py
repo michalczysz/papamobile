@@ -20,7 +20,7 @@ class BrandCountSerializer(serializers.ModelSerializer):
 class MedianSerializer(serializers.ModelSerializer):
     class Meta:
         model = NewCars
-        fields = ('price', 'color', 'fuel', 'milage', 'year', 'import_country')
+        fields = ('price', 'brand', 'color', 'fuel', 'milage', 'year', 'import_country')
 
 class DailyAvgSerializer(serializers.ModelSerializer):
     class Meta:

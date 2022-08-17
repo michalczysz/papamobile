@@ -28,3 +28,6 @@ class NewCars(models.Model):
 class DailyAvg(models.Model):
     date = models.DateTimeField(default='')
     price = models.IntegerField(default=0)
+    count = models.IntegerField(default=0)
+    class Meta:
+       ordering = ('date',)
