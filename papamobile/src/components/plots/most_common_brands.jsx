@@ -4,6 +4,7 @@ import Plot from 'react-plotly.js';
 import useEffectOnce from '../../ReactEX'
 
 import './daily_avg.css'
+import CircularProgress from '@mui/material/CircularProgress';
 
 function compare(a, b) {
     const bandA = a.count;
@@ -51,11 +52,17 @@ function MostCommonPlot() {
     }, [])
 
     return (
-        <Plot data={state === "loading" ? [{
-            values: [0],
-            labels: ['none'],
-            type: 'pie'
-        }] : state} layout={{ autosize: true, title: 'Most popular brands' }} useResizeHandler className='daily_prices_plot'/>
+        <>
+            {state === "loading" ?
+                <CircularProgress style={{'marginTop': '25%'}}/>
+                :
+                <Plot data={state === "loading" ? [{
+                    values: [0],
+                    labels: ['none'],
+                    type: 'pie'
+                }] : state} layout={{ autosize: true, title: 'Most popular brands' }} useResizeHandler className='daily_prices_plot' />
+            }
+        </>
     )
 }
 export default MostCommonPlot

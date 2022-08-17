@@ -2,9 +2,11 @@ import { React, useState } from 'react'
 import useEffectOnce from '../../ReactEX'
 import Plot from 'react-plotly.js'
 import axios from 'axios';
+
+import CircularProgress from '@mui/material/CircularProgress';
 import './daily_avg.css'
 
-function DailyAvgPlot({type, title}) {
+function DailyAvgPlot({ type, title }) {
     const [state, setState] = useState("loading")
 
     useEffectOnce(() => {
@@ -27,16 +29,22 @@ function DailyAvgPlot({type, title}) {
     })
 
     return (
-        <Plot data={state === "loading" ? [{
-            x: [0],
-            y: [0],
-            type: 'scatter',
-            mode: 'lines+markers',
-            marker: { color: 'red' },
-        }] : state} layout={{ autosize: true, title: title }}
-            useResizeHandler
-            className='daily_prices_plot'
-        />
+        <>
+            {state === "loading" ?
+                <CircularProgress style={{'marginTop': '25%'}}/>
+                :
+                <Plot data={state === "loading" ? [{
+                    x: [0],
+                    y: [0],
+                    type: 'scatter',
+                    mode: 'lines+markers',
+                    marker: { color: 'red' },
+                }] : state} layout={{ autosize: true, title: title }}
+                    useResizeHandler
+                    className='daily_prices_plot'
+                />
+            }
+        </>
     )
 }
 

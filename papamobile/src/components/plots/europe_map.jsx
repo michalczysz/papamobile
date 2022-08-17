@@ -5,6 +5,7 @@ import useEffectOnce from '../../ReactEX'
 
 import './daily_avg.css'
 import { Grid } from '@mui/material'
+import CircularProgress from '@mui/material/CircularProgress';
 
 function map_calc(x, in_min, in_max, out_min, out_max) {
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
@@ -72,26 +73,34 @@ function MapPlot({ title }) {
     return (
         <Grid container spacing={{ xs: 1 }} columns={{ xs: 6, sm: 12 }}>
             <Grid item xs={12} sm={6}>
-                <Plot data={state === "loading" ? [{ x: [0], y: [0] }] : state}
-                    layout={{
-                        autosize: true,
-                        title: title[0],
-                        'geo': {
-                            'scope': 'europe',
-                            'resolution': 50
-                        }
-                    }}
-                    useResizeHandler className='daily_prices_plot'
-                />
+                {state === "loading" ?
+                    <CircularProgress/>
+                    :
+                    <Plot data={state}
+                        layout={{
+                            autosize: true,
+                            title: title[0],
+                            'geo': {
+                                'scope': 'europe',
+                                'resolution': 50
+                            }
+                        }}
+                        useResizeHandler className='daily_prices_plot'
+                    />
+                }
             </Grid>
             <Grid item xs={12} sm={6}>
-                <Plot data={state === "loading" ? [{ x: [0], y: [0] }] : [{
-                    type: 'bar',
-                    x: state2.x,
-                    y: state2.y,
-                }]} layout={{ autosize: true, title: title[1] }}
-                useResizeHandler className='daily_prices_plot'
-                />
+                {state === "loading" ?
+                    <CircularProgress style={{'marginTop': '25%'}}/>
+                    :
+                    <Plot data={[{
+                        type: 'bar',
+                        x: state2.x,
+                        y: state2.y,
+                    }]} layout={{ autosize: true, title: title[1] }}
+                        useResizeHandler className='daily_prices_plot'
+                    />
+                }
             </Grid>
         </Grid>
     )

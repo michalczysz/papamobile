@@ -3,6 +3,8 @@ import axios from 'axios';
 import Plot from 'react-plotly.js';
 import useEffectOnce from '../../ReactEX'
 
+import CircularProgress from '@mui/material/CircularProgress';
+
 function HeatPlot({ imports, brands, title }) {
     const [state, setState] = React.useState("loading")
 
@@ -33,7 +35,13 @@ function HeatPlot({ imports, brands, title }) {
     })
 
     return (
-        <Plot data={state === "loading" ? [data] : state} layout={{ title: title }} useResizeHandler className='daily_prices_plot'/>
+        <>
+            {state === "loading" ?
+                <CircularProgress style={{'marginTop': '25%'}}/>
+                :
+                <Plot data={state} layout={{ title: title }} useResizeHandler className='daily_prices_plot' />
+            }
+        </>
     )
 }
 

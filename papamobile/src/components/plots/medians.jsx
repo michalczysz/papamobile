@@ -3,6 +3,8 @@ import axios from 'axios';
 import Plot from 'react-plotly.js';
 import useEffectOnce from '../../ReactEX'
 
+import CircularProgress from '@mui/material/CircularProgress';
+
 function Medians({ field, search, title }) {
     const [state, setState] = React.useState("loading")
     let output = { x: [], y: [] }
@@ -25,18 +27,24 @@ function Medians({ field, search, title }) {
 
 
     return (
-        <Plot data={state === "loading" ? [{
-            values: [0],
-            labels: ['none'],
-            type: 'pie'
-        }] : [{
-            type: 'bar',
-            x: state.x,
-            y: state.y,
-        }]} layout={{ title: title }}
-            useResizeHandler
-            className='daily_prices_plot'
-        />
+        <>
+            {state === "loading" ?
+                <CircularProgress style={{'marginTop': '25%'}}/>
+                :
+                <Plot data={state === "loading" ? [{
+                    values: [0],
+                    labels: ['none'],
+                    type: 'pie'
+                }] : [{
+                    type: 'bar',
+                    x: state.x,
+                    y: state.y,
+                }]} layout={{ title: title }}
+                    useResizeHandler
+                    className='daily_prices_plot'
+                />
+            }
+        </>
     )
 }
 
