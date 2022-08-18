@@ -1,7 +1,13 @@
-.grid-container {
+.Detail {
     display: flex;
-    width: 50%;
+    width: 100%;
     justify-content: center;
+    flex-direction: column;
+}
+
+.grid-container {
+    margin: auto;
+    width: 50%;
 }
 
 .form-title{
@@ -13,5 +19,5 @@
     letter-spacing: normal;
     font-style: normal;
     margin: 20px;
-    margin-bottom: 0px;
+    margin-bottom: 10px;
 }

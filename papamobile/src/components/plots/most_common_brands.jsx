@@ -19,8 +19,8 @@ function compare(a, b) {
     return comparison;
 }
 
-function MostCommonData() {
-    return axios.get('http://34.141.144.103:8000/base/mbrand?format=json')
+function MostCommonData(api_props) {
+    return axios.get('http://34.141.144.103:8000/base/mbrand' + api_props)
         .then((response) => {
             let data = [{
                 values: [],
@@ -42,19 +42,19 @@ function MostCommonData() {
         });
 }
 
-function MostCommonPlot() {
+function MostCommonPlot({ api_props }) {
     const [state, setState] = useState("loading")
 
     useEffectOnce(() => {
-        MostCommonData().then(results => {
+        MostCommonData(api_props).then(results => {
             setState(results);
         });
-    }, [])
+    }, [api_props])
 
     return (
         <>
             {state === "loading" ?
-                <CircularProgress style={{'marginTop': '25%'}}/>
+                <CircularProgress style={{ 'marginTop': '25%' }} />
                 :
                 <Plot data={state === "loading" ? [{
                     values: [0],
