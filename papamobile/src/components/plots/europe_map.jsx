@@ -11,13 +11,20 @@ function map_calc(x, in_min, in_max, out_min, out_max) {
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
-function MapPlot({ title }) {
+function MapPlot({ title, api_props }) {
     const [state, setState] = React.useState("loading")
     const [state2, setState2] = React.useState("loading")
 
-    let countries = { "Austria": "AUT", "Belgia": "BEL", "Dania": "DNK", "Francja": "FRA", "Hiszpania": "ESP", "Holandia": "NLD", "Irlandia": "IRL", "Luksemburg": "LUX", "Niemcy": "DEU", "Polska": "POL", "Szwajcaria": "CHE", "Szwecja": "SWE", "Włochy": "ITA" }
+    let countries = { "Austria": "AUT", "Belgium": "BEL", "Denmark": "DNK", "France": "FRA", "Spain": "ESP", "Netherlands": "NLD", "Ireland": "IRL", "Luxembourg": "LUX", "Germany": "DEU", "Poland": "POL", "Switzerland": "CHE", "Sweden": "SWE", "Italy": "ITA" }
 
     useEffectOnce(() => {
+        let detail = ''
+        if (typeof api_props !== 'undefined') {
+            if (api_props.brand !== '') detail = detail + '&brand_d=' + api_props.brand
+            if (api_props.model !== '') detail = detail + '&model_d=' + api_props.model
+            if (api_props.year_since !== '') detail = detail + '&year_since_d=' + api_props.year_since
+            if (api_props.year_till !== '') detail = detail + '&year_till_d=' + api_props.year_till
+        }
         let highest = 0
         let data = [{
             type: 'scattergeo',
@@ -45,7 +52,7 @@ function MapPlot({ title }) {
         let data2 = { x: [], y: [] }
 
         Object.keys(countries).forEach(country => {
-            axios.get('http://34.141.144.103:8000/base/cby?country=' + country)
+            axios.get('http://34.141.144.103:8000/base/cby?country=' + country + detail)
                 .then((response) => {
                     data[0].locations.push(countries[country])
                     highest = highest < response.data.count ? response.data.count : highest
@@ -74,7 +81,7 @@ function MapPlot({ title }) {
         <Grid container spacing={{ xs: 1 }} columns={{ xs: 6, sm: 12 }}>
             <Grid item xs={12} sm={6}>
                 {state === "loading" ?
-                    <CircularProgress/>
+                    <CircularProgress />
                     :
                     <Plot data={state}
                         layout={{
@@ -91,12 +98,17 @@ function MapPlot({ title }) {
             </Grid>
             <Grid item xs={12} sm={6}>
                 {state === "loading" ?
-                    <CircularProgress style={{'marginTop': '25%'}}/>
+                    <CircularProgress style={{ 'marginTop': '25%' }} />
                     :
                     <Plot data={[{
                         type: 'bar',
                         x: state2.x,
                         y: state2.y,
+                        transforms: [{
+                            type: 'sort',
+                            target: 'y',
+                            order: 'descending'
+                        }]
                     }]} layout={{ autosize: true, title: title[1] }}
                         useResizeHandler className='daily_prices_plot'
                     />

@@ -19,48 +19,64 @@ function compare(a, b) {
     return comparison;
 }
 
-function MostCommonData() {
-    return axios.get('http://34.141.144.103:8000/base/mbrand?format=json')
+function MostCommonData(api_props) {
+    console.log(api_props)
+    return axios.get('http://34.141.144.103:8000/base/mbrand')
         .then((response) => {
             let data = [{
                 values: [],
                 labels: [],
                 type: 'pie'
             }];
+
             let datas = response.data
             datas.sort(compare)
-            datas.slice(0, 9).forEach(element => {
-                data[0].labels.push(element.brand)
-                data[0].values.push(element.count)
-            });
-            data[0].labels.push('other')
-            data[0].values.push(0)
-            datas.slice(10, datas.length).forEach(element => {
-                data[0].values[data[0].values.length - 1] += element.count
-            });
+
+            if (typeof api_props === 'undefined') {
+                datas.slice(0, 9).forEach(element => {
+                    data[0].labels.push(element.brand)
+                    data[0].values.push(element.count)
+                });
+                data[0].labels.push('other')
+                data[0].values.push(0)
+                datas.slice(9, datas.length).forEach(element => {
+                    data[0].values[data[0].values.length - 1] += element.count
+                });
+            } else {
+                data[0].labels = ["other", api_props.brand]
+                data[0].values = [0,0]
+                datas.forEach(element => {
+                    if (element.brand === api_props.brand) {
+                        data[0].values[1] = element.count
+                    } else {
+                        data[0].values[0] = data[0].values[0] + element.count
+                    }
+                })
+            }
+
             return data
         });
 }
 
-function MostCommonPlot() {
+function MostCommonPlot({title, api_props }) {
     const [state, setState] = useState("loading")
 
     useEffectOnce(() => {
-        MostCommonData().then(results => {
+        MostCommonData(api_props).then(results => {
             setState(results);
         });
-    }, [])
+    }, [api_props])
 
     return (
         <>
             {state === "loading" ?
-                <CircularProgress style={{'marginTop': '25%'}}/>
+                <CircularProgress style={{ 'marginTop': '25%' }} />
                 :
                 <Plot data={state === "loading" ? [{
                     values: [0],
                     labels: ['none'],
                     type: 'pie'
-                }] : state} layout={{ autosize: true, title: 'Most popular brands' }} useResizeHandler className='daily_prices_plot' />
+                }] : state} layout={{ autosize: true, title: title }} useResizeHandler className='daily_prices_plot' />
             }
         </>
     )
