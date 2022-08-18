@@ -20,7 +20,6 @@ function compare(a, b) {
 }
 
 function MostCommonData(api_props) {
-    console.log(api_props)
     return axios.get('http://34.141.144.103:8000/base/mbrand')
         .then((response) => {
             let data = [{

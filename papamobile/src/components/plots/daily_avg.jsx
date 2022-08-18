@@ -51,7 +51,7 @@ function DailyAvgPlot({ type, title, api_props }) {
                     }
                     response.data.forEach(element => {
                         if (temp.hasOwnProperty([element.added]) === false) {
-                            console.log(element.added)
+                            // console.log(element.added)
                             temp = { ...temp, [element.added]: [element[type]] }
                         } else {
                             temp[element.added].push(element[type])

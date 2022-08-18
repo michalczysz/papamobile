@@ -17,19 +17,24 @@ function HeatPlot({ imports, brands, title }) {
         hoverongaps: false
     }
 
+    let counter = 0
+
     useEffectOnce(() => {
         data.y = imports
+        data.x = brands
         imports.forEach((import_c, index_c) => {
             data.z.push([])
             brands.forEach((brand, index_b) => {
                 axios.get('http://34.141.144.103:8000/base/ibb?brand=' + brand + '&import=' + import_c)
                     .then((response) => {
                         data.z[index_c][index_b] = response.data.count
-                        if (data.x.length < brands.length) data.x.push(brand)
-                        if (data.y.length === imports.length && data.x.length === brands.length && data.z[data.z.length - 1].length === brands.length) {
+                        counter++
+                        // console.log(counter, imports.length * brands.length)
+                        if (counter === imports.length * brands.length) {
                             setState([data])
                         }
                     });
+                    
             })
         })
     })

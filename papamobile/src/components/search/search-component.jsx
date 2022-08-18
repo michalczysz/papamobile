@@ -9,7 +9,7 @@ import "./search-component.css"
 import MostCommonPlot from "../plots/most_common_brands"
 import Medians from "../plots/medians"
 import DailyAvgPlot from "../plots/daily_avg"
-// import HeatPlot from "../plots/heat_map"
+import HeatPlot from "../plots/heat_map"
 import MapPlot from "../plots/europe_map"
 
 function SearchForm(e) {
@@ -65,7 +65,10 @@ function SearchForm(e) {
                         <MapPlot title={["Cars Origin Map", "Cars Origin Bar Chart"]} api_props={api_props} />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <Medians field={'color'} search={['Black', 'Red', 'Gray', 'Blue', 'Silver', 'White', 'Other']} title={'Median Price/Color'} api_props={api_props}/>
+                        <Medians field={'color'} search={['Black', 'Red', 'Gray', 'Blue', 'Silver', 'White', 'Other']} title={'Median Price/Color'} api_props={api_props} />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <HeatPlot imports={['Netherlands', 'Austria', 'Belgium', 'France']} brands={[api_props.brand, 'BMW', 'Mercedes-benz', 'Opel', 'Audi']} title={'Most imported brands from countries'} />
                     </Grid>
                 </Grid>
             )
