@@ -32,7 +32,7 @@ function Test() {
         <div className='General'>
             <Grid container spacing={{ xs: 1 }} columns={{ xs: 6, sm: 12 }} align="center">
                 <Grid item xs={12} sm={6}>
-                    <MostCommonPlot />
+                    <MostCommonPlot title={'Market share among brands'}/>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <Medians field={'fuel'} search={['Petrol', 'Diesel', 'Electric', 'Hybrid']} title={'Median Price/Fuel'} />

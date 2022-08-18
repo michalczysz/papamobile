@@ -5,13 +5,20 @@ import useEffectOnce from '../../ReactEX'
 
 import CircularProgress from '@mui/material/CircularProgress';
 
-function Medians({ field, search, title }) {
+function Medians({ field, search, title, api_props }) {
     const [state, setState] = React.useState("loading")
     let output = { x: [], y: [] }
 
-    useEffectOnce(() => {        //setState( { x: [], y: [] } )
+    useEffectOnce(() => {
+        let detail = ''
+        if (typeof api_props !== 'undefined') {
+            if (api_props.brand !== '') detail = detail + '&brand_d=' + api_props.brand
+            if (api_props.model !== '') detail = detail + '&model_d=' + api_props.model
+            if (api_props.year_since !== '') detail = detail + '&year_since_d=' + api_props.year_since
+            if (api_props.year_till !== '') detail = detail + '&year_till_d=' + api_props.year_till
+        }
         search.forEach(searching => {
-            axios.get('http://34.141.144.103:8000/base/user_search?field=' + field + '&search=' + searching)
+            axios.get('http://34.141.144.103:8000/base/user_search?field=' + field + '&search=' + searching + detail)
                 .then((response) => {
                     output.x.push(searching)
                     output.y.push(response.data.median)
@@ -23,7 +30,7 @@ function Medians({ field, search, title }) {
                 });
         }
         )
-    })
+    }, [api_props])
 
 
     return (
