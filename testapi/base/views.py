@@ -31,12 +31,15 @@ def mcBrand(request):
 
 class MBrand(APIView):
     def get(self, request):
-        output = []
-        for brand in brands:
-            count = NewCars.objects.filter(brand__iexact=brand).count()
-            if count > 0 :
-                output.append( { 'brand': brand, 'count': count} )
-        return Response(output)
+        cars = NewCars.objects.all()
+        cars = detail_search(self.request, cars)
+
+        # output = []
+        # for brand in brands:
+        #     count = NewCars.objects.filter(brand__iexact=brand).count()
+        #     if count > 0 :
+        #         output.append( { 'brand': brand, 'count': count} )
+        return Response(BrandCountSerializer(cars, many = True).data)
 
 class MBrandList(viewsets.ViewSet):
     queryset_temp = NewCars.objects.all()
@@ -46,13 +49,11 @@ class MBrandList(viewsets.ViewSet):
         if count > 0 : output_filter.append( { 'brand': brand, 'count': count} )
 
     def list(self, request):
-        output = self.output_filter#.objects.filter(brand__iexact='bmw')
+        output = self.output_filter #.objects.filter(brand__iexact='bmw')
         return Response(output)
     
     def retrieve(self, request, pk=None):
         output = []
-#        print(self.output_filter[int(pk)]['brand'])
-#        models_in_brands = BrandCountSerializer(self.queryset_temp.filter(brand__iexact= self.output_filter[int(pk)]['brand']), many = True) 
         models_in_brands = self.queryset_temp.filter(brand__iexact= pk)
         # below is written custom distinc() function which is not supported
         # in SQLite in django. It supposed to be suppresed by distinc()
@@ -81,20 +82,21 @@ class MedianSearch(APIView):
         user_field = self.request.query_params.get('field', None)
         user_search = self.request.query_params.get('search', None)
         
-        #detail_search(self, request)
-
         prices = []
-        cars = []
-        if user_field == 'color': cars = NewCars.objects.filter(color__iexact=user_search)
-        if user_field == 'fuel': cars = NewCars.objects.filter(fuel__iexact=user_search)
+        cars = NewCars.objects.all()
+
+        cars = detail_search(self.request, cars)
         
-        if user_field == 'milage': cars = NewCars.objects.filter(milage__gte = int(user_search) * 1000, milage__lte = (int(user_search) + 10 ) * 1000 )
-        if user_field == 'year': cars = NewCars.objects.filter(year__iexact=user_search)
-        if user_field == 'import_country': cars = NewCars.objects.filter(import_country__iexact=user_search)
+        if user_field == 'color': cars = cars.filter(color__iexact=user_search)
+        if user_field == 'fuel': cars = cars.filter(fuel__iexact=user_search)
+        if user_field == 'milage': cars = cars.filter(milage__gte = int(user_search) * 1000, milage__lte = (int(user_search) + 10 ) * 1000 )
+        if user_field == 'year': cars = cars.filter(year__iexact=user_search)
+        if user_field == 'import_country': cars = cars.filter(import_country__iexact=user_search)
 
         serializer = MedianSerializer(cars, many=True)
         for car in serializer.data: prices.append(car['price'])
-        return Response({'median': statistics.median(prices)})#, 'debug': serializer.data})
+        count = len(prices)
+        return Response({'median': (statistics.median(prices) if count > 0 else 0), 'count': count})#, 'debug': serializer.data})
 
 class DailyAvgPrice(generics.ListCreateAPIView):
     serializer_class = DailyAvgSerializer
@@ -117,8 +119,10 @@ class Import_by_brand(APIView):
 class Count_by_import(APIView):
     def get(self, request):
         country = self.request.query_params.get('country', None)
-        count = NewCars.objects.filter(import_country__iexact = country).count()
-        total = NewCars.objects.all().count()
+        queryset = NewCars.objects.all()
+        queryset = detail_search(self.request, queryset)
+        count = queryset.filter(import_country__iexact = country).count()
+        total = queryset.count()
         return Response({'count': count, 'total': total})
 
 def detail_search(params, set):
@@ -129,10 +133,12 @@ def detail_search(params, set):
     year_since = params.query_params.get('year_since_d', None)
     year_till = params.query_params.get('year_till_d', None)
 
-    if brand != None: output = set.filter(brand__iexact = brand)
-    if model != None: output = set.filter(model__iexact = model)
-    if year_since != None: output = set.filter(year__gte = year_since)
-    if year_till != None: output = set.filter(year__lte = year_till)
+    print(brand, model, year_since, year_till, output.count())
+
+    if brand != None: output = output.filter(brand__iexact = brand)
+    if model != None: output = output.filter(model__iexact = model)
+    if year_since != None: output = output.filter(year__gte = year_since)
+    if year_till != None: output = output.filter(year__lte = year_till)
 
     return output
     

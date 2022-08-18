@@ -13,7 +13,7 @@ class BrandCountSerializer(serializers.ModelSerializer):
  #   brand_count = serializers.SerializerMethodField()
     class Meta:
         model = NewCars
-        fields = ('brand',  'model', 'year')
+        fields = ('brand',  'model', 'year', 'added', 'price')
 #    def get_brand_count(self, obj):
 #        return obj.brand.count('BMW')
 
