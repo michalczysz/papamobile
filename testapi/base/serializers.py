@@ -10,12 +10,12 @@ class NewCarsSerializer(serializers.ModelSerializer):
         fields ='__all__'
 
 class BrandCountSerializer(serializers.ModelSerializer):
-    brand_count = serializers.SerializerMethodField()
+ #   brand_count = serializers.SerializerMethodField()
     class Meta:
         model = NewCars
-        fields = ['brand', 'brand_count']
-    def get_brand_count(self, obj):
-        return obj.brand.count('BMW')
+        fields = ('brand',  'model', 'year')
+#    def get_brand_count(self, obj):
+#        return obj.brand.count('BMW')
 
 class MedianSerializer(serializers.ModelSerializer):
     class Meta:

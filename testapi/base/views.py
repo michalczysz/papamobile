@@ -39,14 +39,34 @@ class MBrand(APIView):
         return Response(output)
 
 class MBrandList(viewsets.ViewSet):
-    queryset = NewCars.objects.all()
+    queryset_temp = NewCars.objects.all()
+    output_filter = []
+    for brand in brands:
+        count = queryset_temp.filter(brand__iexact=brand).count()
+        if count > 0 : output_filter.append( { 'brand': brand, 'count': count} )
+
     def list(self, request):
-        output = []
-        for brand in brands:
-            count = NewCars.objects.filter(brand__iexact=brand).count()
-            if count > 0 :
-                output.append( { 'brand': brand, 'count': count} )
+        output = self.output_filter#.objects.filter(brand__iexact='bmw')
         return Response(output)
+    
+    def retrieve(self, request, pk=None):
+        output = []
+#        print(self.output_filter[int(pk)]['brand'])
+#        models_in_brands = BrandCountSerializer(self.queryset_temp.filter(brand__iexact= self.output_filter[int(pk)]['brand']), many = True) 
+        models_in_brands = self.queryset_temp.filter(brand__iexact= pk)
+        # below is written custom distinc() function which is not supported
+        # in SQLite in django. It supposed to be suppresed by distinc()
+        # function when database will migrate to PostgreSQL
+        for car in models_in_brands:
+            flag = False
+            for index, model in enumerate(output):
+                if model[0] == car.model:
+                    output[index][1] = output[index][1] + 1
+                    flag = True
+                    break
+            if flag == False: output.append([car.model, 1])
+    
+        return Response({'brand': pk, 'models': output, 'count': len(output)})
 
 class DList(APIView):
     def get(self, request):
@@ -61,7 +81,7 @@ class MedianSearch(APIView):
         user_field = self.request.query_params.get('field', None)
         user_search = self.request.query_params.get('search', None)
         
-        detail_search(self, request)
+        #detail_search(self, request)
 
         prices = []
         cars = []
@@ -101,8 +121,21 @@ class Count_by_import(APIView):
         total = NewCars.objects.all().count()
         return Response({'count': count, 'total': total})
 
-def detail_search(self, request):
-    print(self.request.query_params.get('brand_d', None))
+def detail_search(params, set):
+    output = set
+
+    brand = params.query_params.get('brand_d', None)
+    model = params.query_params.get('model_d', None)
+    year_since = params.query_params.get('year_since_d', None)
+    year_till = params.query_params.get('year_till_d', None)
+
+    if brand != None: output = set.filter(brand__iexact = brand)
+    if model != None: output = set.filter(model__iexact = model)
+    if year_since != None: output = set.filter(year__gte = year_since)
+    if year_till != None: output = set.filter(year__lte = year_till)
+
+    return output
+    
 
 @api_view(['POST'])
 def addCar(request):
