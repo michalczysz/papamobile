@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App" style={{minWidth: '480px',}}>
+    <div className="App">
       <Router>
         <TopBar />
         <Routes>

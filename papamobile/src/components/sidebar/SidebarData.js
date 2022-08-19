@@ -1,13 +1,17 @@
+import { Search, Home, Info } from '@mui/icons-material'
+
+
 export const SidebarData = [
   {
     title: 'General',
     path: '/',
-    //icon: <AiIcons.AiFillHome />,
+    icon: <Home />,
     cName: 'nav-text'
   },
   {
     title: 'Detail',
     path: '/detail',
+    icon: <Search />,
     cName: 'nav-text'
   },
   // {
@@ -18,6 +22,7 @@ export const SidebarData = [
   {
     title: 'About',
     path: '/about',
+    icon: <Info />,
     cName: 'nav-text'
   },
 ];
