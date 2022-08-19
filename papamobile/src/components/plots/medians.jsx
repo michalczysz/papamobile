@@ -5,7 +5,7 @@ import useEffectOnce from '../../ReactEX'
 
 import CircularProgress from '@mui/material/CircularProgress';
 
-function Medians({ field, search, title, api_props }) {
+function Medians({ field, search, title, annotations, api_props }) {
     const [state, setState] = React.useState("loading")
     let output = { x: [], y: [] }
 
@@ -22,8 +22,6 @@ function Medians({ field, search, title, api_props }) {
                 .then((response) => {
                     output.x.push(searching)
                     output.y.push(response.data.median)
-                    //console.log(response.data.median + ' ' + searching, output)
-                    //setState( { x: state.x.concat(color), y: state.y.concat(response.data.median) } )
                     if (output.x.length === search.length) {
                         setState({ x: output.x, y: output.y })
                     }
@@ -46,14 +44,33 @@ function Medians({ field, search, title, api_props }) {
                     type: 'bar',
                     x: state.x,
                     y: state.y,
-                    //...(field === 'color' && {
                     transforms: [{
                         type: 'sort',
                         target: 'y',
                         order: 'descending'
                     }]
-                    //})
-                }]} layout={{ title: title }}
+                }]} layout={{
+                    title: title,
+                    annotations: [{
+                        xref: 'paper',
+                        yref: 'paper',
+                        x: 0,
+                        xanchor: 'right',
+                        y: 1,
+                        yanchor: 'bottom',
+                        text: annotations.y,
+                        showarrow: false
+                    }, {
+                        xref: 'paper',
+                        yref: 'paper',
+                        x: 1,
+                        xanchor: 'left',
+                        y: 0,
+                        yanchor: 'top',
+                        text: annotations.x,
+                        showarrow: false
+                    }]
+                }}
                     useResizeHandler
                     className='daily_prices_plot'
                 />

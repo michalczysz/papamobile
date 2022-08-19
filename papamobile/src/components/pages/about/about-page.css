@@ -1,0 +1,65 @@
+.about {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 50%;
+    height: 20%;
+}
+
+.box {
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: auto;
+    height: 15%;
+}
+
+.box2 {
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.box>img {
+    max-width: 100%;
+    max-height: 100%;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.authors {
+    align-content: center;
+    width: 50%
+}
+
+.author {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    margin-bottom: 5px;
+    /* z-index: 10; */
+}
+
+.author:hover {
+    text-decoration: underline;     
+}
+
+.info-title{
+    display: flex;
+    justify-content: center;
+
+}
+
+.technologies {
+    /* margin:auto;
+    width: 50% */
+}

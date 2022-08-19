@@ -1,10 +1,3 @@
-.Detail {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    flex-direction: column;
-}
-
 .grid-container {
     margin: auto;
     width: 50%;

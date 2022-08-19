@@ -10,11 +10,11 @@ export const SidebarData = [
     path: '/detail',
     cName: 'nav-text'
   },
-  {
-    title: 'Settings',
-    path: '/settings',
-    cName: 'nav-text'
-  },
+  // {
+  //   title: 'Settings',
+  //   path: '/settings',
+  //   cName: 'nav-text'
+  // },
   {
     title: 'About',
     path: '/about',

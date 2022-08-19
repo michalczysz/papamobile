@@ -14,7 +14,6 @@ function App() {
         <TopBar />
         <Routes>
           <Route path="/">
-            {/* <Route path="test" element={<Test state={state} setState={setState}/>} /> */}
             <Route index element={<General/>} />
             <Route path="detail" element={<Detail />} />
             <Route path="settings" element={<Settings />} />
