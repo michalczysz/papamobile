@@ -23,7 +23,7 @@ function About() {
         <div className="row box"><img src={plotlytLogo} alt="plotly logo" /></div>
       </div>
       <div className='info'>
-        <Grid container spacing={{ xs: 3 }} columns={{ xs: 1, sm: 2 }}>
+        <Grid container spacing={{ xs: 3 }} columns={{ xs: 1, sm: 2 }} style={{'width': '50%'}}>
           <Grid item xs={1}>
             <div className='authors'>
               <div className="info-title"><b>Authors</b></div>

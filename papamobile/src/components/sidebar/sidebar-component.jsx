@@ -28,7 +28,7 @@ export default function SideBar({state, setState}) {
             <List>
                 {SidebarData.map((item, index) => (
                     <ListItem key={index} disablePadding>
-                        <Link style={{ textDecoration: 'none', width: '100%' }} to={item.path}>
+                        <Link style={{ textDecoration: 'none', width: '100%', color: 'inherit' }} to={item.path}>
                             <ListItemButton >
                                 <ListItemText><div style={{'display': 'flex', 'flexDirection': 'row' , 'alignItems': 'center'}}>{item.icon}{item.title}</div></ListItemText>
                             </ListItemButton>
