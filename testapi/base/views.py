@@ -2,9 +2,11 @@
 from rest_framework import request
 from rest_framework import response
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.views import APIView
-from rest_framework import generics, filters, viewsets
+from rest_framework import generics, viewsets
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+
 from base.models import NewCars, DailyAvg
 from .serializers import BrandCountSerializer, MedianSerializer, NewCarsSerializer, DailyAvgSerializer
 from .__init__ import brands
@@ -13,23 +15,19 @@ from .__init__ import brands
 import statistics
 
 @api_view(['GET'])
+# @permission_classes((IsAuthenticatedOrReadOnly, ))
 def getData(request):
     car = NewCars.objects.all()
     serializer = NewCarsSerializer(car, many = True)
     return Response(serializer.data)
 
 class MostCommonBrand(generics.RetrieveAPIView):
+    # permission_classes = (IsAuthenticatedOrReadOnly,)
     queryset = NewCars.objects.all()
     serializer_class = BrandCountSerializer
 
-
-@api_view(['GET'])
-def mcBrand(request):
-    car = NewCars.objects.all()
-    serializer = BrandCountSerializer(car, many = True)
-    return Response(serializer.data)
-
 class MBrand(APIView):
+    # permission_classes = (IsAuthenticatedOrReadOnly,)
     def get(self, request):
         cars = NewCars.objects.all()
         cars = detail_search(self.request, cars)
@@ -42,6 +40,7 @@ class MBrand(APIView):
         return Response(BrandCountSerializer(cars, many = True).data)
 
 class MBrandList(viewsets.ViewSet):
+    # permission_classes = (IsAuthenticatedOrReadOnly,)
     queryset_temp = NewCars.objects.all()
     output_filter = []
     for brand in brands:
@@ -70,6 +69,7 @@ class MBrandList(viewsets.ViewSet):
         return Response({'brand': pk, 'models': output, 'count': len(output)})
 
 class DList(APIView):
+    # permission_classes = (IsAuthenticatedOrReadOnly,)
     def get(self, request):
         date = self.request.query_params.get('date', None)
         filter = NewCars.objects.filter(added=date).all()
@@ -77,7 +77,7 @@ class DList(APIView):
         return Response( serializer.data )
 
 class MedianSearch(APIView):
-    #serializer_class = MedianSerializer
+    # permission_classes = (IsAuthenticatedOrReadOnly,)
     def get(self, request):
         user_field = self.request.query_params.get('field', None)
         user_search = self.request.query_params.get('search', None)
@@ -99,16 +99,19 @@ class MedianSearch(APIView):
         return Response({'median': (statistics.median(prices) if count > 0 else 0), 'count': count})#, 'debug': serializer.data})
 
 class DailyAvgPrice(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticatedOrReadOnly,)
     serializer_class = DailyAvgSerializer
     queryset = DailyAvg.objects.all()
 
 class BrandSearch(generics.ListAPIView):
+    # permission_classes = (IsAuthenticatedOrReadOnly,)
     serializer_class = NewCarsSerializer
     def get_queryset(self):
         brand = self.request.query_params.get('brand', None)
         return NewCars.objects.filter(brand=brand)
 
 class Import_by_brand(APIView):
+    # permission_classes = (IsAuthenticatedOrReadOnly,)
     def get(self, request):
         brand = self.request.query_params.get('brand', None)
         import_c = self.request.query_params.get('import', None)
@@ -117,6 +120,7 @@ class Import_by_brand(APIView):
         return Response({'count': cars})
 
 class Count_by_import(APIView):
+    # permission_classes = (IsAuthenticatedOrReadOnly,)
     def get(self, request):
         country = self.request.query_params.get('country', None)
         queryset = NewCars.objects.all()
@@ -144,6 +148,7 @@ def detail_search(params, set):
     
 
 @api_view(['POST'])
+@permission_classes((IsAuthenticated, ))
 def addCar(request):
     serializer = NewCarsSerializer(data=request.data)
     if serializer.is_valid():

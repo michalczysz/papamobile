@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     'base.apps.BaseConfig',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
 ]
 
@@ -105,6 +106,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+REST_FRAMEWORK = {
+   'DEFAULT_AUTHENTICATION_CLASSES': (
+       'rest_framework.authentication.TokenAuthentication',
+   ),
+#    'DEFAULT_PERMISSION_CLASSES': (
+#         'rest_framework.permissions.IsAdminUser'
+#    ),
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
