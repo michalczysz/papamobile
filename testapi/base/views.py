@@ -7,8 +7,9 @@ from rest_framework.views import APIView
 from rest_framework import generics, viewsets
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 
-from base.models import NewCars, DailyAvg
+from base.models import NewCars, DailyAvg, DailyPlots
 from .serializers import BrandCountSerializer, MedianSerializer, NewCarsSerializer, DailyAvgSerializer
+from .serializers import DailyPlotsSerializer
 from .__init__ import brands
 
 # Import statistics Library
@@ -96,12 +97,30 @@ class MedianSearch(APIView):
         serializer = MedianSerializer(cars, many=True)
         for car in serializer.data: prices.append(car['price'])
         count = len(prices)
-        return Response({'median': (statistics.median(prices) if count > 0 else 0), 'count': count})#, 'debug': serializer.data})
+        return Response({'median': (statistics.median(prices) if count > 0 else 0), 'count': count})
 
 class DailyAvgPrice(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
     serializer_class = DailyAvgSerializer
     queryset = DailyAvg.objects.all()
+
+class DailyPlotsUpdate(APIView):
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    queryset = DailyPlots.objects.all()
+    serializer_class = DailyPlotsSerializer
+
+    def get(self, request):
+        user_search = self.request.query_params.get('search', None)
+        median = self.serializer_class(self.queryset[0], many = False).data        
+        return Response({'median': median['_' + user_search]})
+
+    def patch(self, request):
+        testmodel_object = self.queryset[0]
+        serializer = self.serializer_class(testmodel_object, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'output': serializer.data})
+        return Response({'output': "wrong parameters"})
 
 class BrandSearch(generics.ListAPIView):
     # permission_classes = (IsAuthenticatedOrReadOnly,)

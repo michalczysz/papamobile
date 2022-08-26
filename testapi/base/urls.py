@@ -14,5 +14,7 @@ urlpatterns = [
         path('ibb', views.Import_by_brand.as_view(), name='import_by_country'),
         path('cby', views.Count_by_import.as_view(), name='count_by_import'),
         path('mbrand', views.MBrandList.as_view({'get': 'list', }), name='test'),
-        path('mbrand/<str:pk>', views.MBrandList.as_view({'get': 'retrieve', }), )
+        path('mbrand/<str:pk>', views.MBrandList.as_view({'get': 'retrieve', }), ),
+
+        path('user_search/plots', views.DailyPlotsUpdate.as_view(), name='update_plots')
         ]

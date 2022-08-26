@@ -2,7 +2,7 @@
 
 from dataclasses import fields # type: ignore
 from rest_framework import serializers
-from base.models import NewCars, DailyAvg
+from base.models import NewCars, DailyAvg, DailyPlots
 
 class NewCarsSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,4 +25,9 @@ class MedianSerializer(serializers.ModelSerializer):
 class DailyAvgSerializer(serializers.ModelSerializer):
     class Meta:
         model = DailyAvg
+        fields = '__all__'
+
+class DailyPlotsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DailyPlots
         fields = '__all__'
