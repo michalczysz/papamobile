@@ -22,7 +22,7 @@ function Test() {
                     <MostCommonPlot title={'Market share among brands'} />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <Medians field={'fuel'} search={['Petrol', 'Diesel', 'Electric', 'Hybrid']} annotations={{y: 'Price [PLN]', x:''}} title={'Median Price/Fuel'} />
+                    <Medians field={'fuel'} search={['Petrol', 'Diesel', 'Electric', 'Hybrid']} annotations={{y: 'Price [PLN]', x:''}} title={'Median Price/Fuel'} general={true}/>
                 </Grid>
                 <Grid item xs={6} sm={12}>
                     <DailyAvgPlot type={'price'} title={'Daily median price'} />
@@ -31,13 +31,13 @@ function Test() {
                     <DailyAvgPlot type={'count'} title={'Amount of new listings by day'} />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <Medians field={'milage'} search={miles} annotations={{y: 'Price [PLN]', x:"'k Mileage [km]"}} title={'Median Price/Mileage'} />
+                    <Medians field={'milage'} search={miles} annotations={{y: 'Price [PLN]', x:"'k Mileage [km]"}} title={'Median Price/Mileage'} general={true}/>
                 </Grid>
                 <Grid item xs={6} sm={12}>
                     <MapPlot title={["Cars Origin Map", "Cars Origin Bar Chart"]} />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <Medians field={'color'} search={['Black', 'Red', 'Gray', 'Blue', 'Silver', 'White', 'Other']} annotations={{y: 'Price [PLN]', x:''}} title={'Median Price/Color'} />
+                    <Medians field={'color'} search={['Black', 'Red', 'Gray', 'Blue', 'Silver', 'White', 'Other']} annotations={{y: 'Price [PLN]', x:''}} title={'Median Price/Color'} general={true}/>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <HeatPlot imports={['Netherlands', 'Austria', 'Belgium', 'France']} brands={['BMW', 'Mercedes-benz', 'Opel', 'Ford', 'Audi']} title={'Most imported brands from countries'} />
